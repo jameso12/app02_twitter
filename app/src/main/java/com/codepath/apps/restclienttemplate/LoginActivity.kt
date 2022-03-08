@@ -33,9 +33,9 @@ class LoginActivity : OAuthLoginActionBarActivity<TwitterClient>() {
     // OAuth authenticated successfully, launch primary authenticated activity
     // i.e Display application "homepage"
     override fun onLoginSuccess() {
+        Log.i(TAG, "Login successful")
         val i = Intent(this, TimelineActivity::class.java)
         startActivity(i)
-        Log.i(TAG, "Login successful")
     }
 
     // OAuth authentication flow failed, handle the error
