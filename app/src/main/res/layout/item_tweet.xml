@@ -12,6 +12,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -22,6 +23,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="This is username" />
@@ -31,7 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@+id/ivProfilePicture"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+
         tools:text="This is a really long tweet by who ever, blah, blah blah. More blah, and I thiink this works." />
 </androidx.constraintlayout.widget.ConstraintLayout>
