@@ -12,15 +12,19 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="What are your thoughts?"
         android:inputType="textMultiLine"
         android:minLines="5"
- />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonTweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tweet"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="360dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
 </androidx.constraintlayout.widget.ConstraintLayout>
