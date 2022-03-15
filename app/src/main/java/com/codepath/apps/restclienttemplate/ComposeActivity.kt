@@ -3,20 +3,24 @@ package com.codepath.apps.restclienttemplate
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.codepath.apps.restclienttemplate.models.Tweet
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
 
-const val MAX_WORD_COUNT = 140
+const val MAX_WORD_COUNT = 280
 private const val TAG = "ComposeActivity"
 class ComposeActivity : AppCompatActivity() {
     lateinit var btnTweetCompose: Button
     lateinit var etTweet: EditText
     lateinit var client:TwitterClient
+    lateinit var tvCount:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,23 @@ class ComposeActivity : AppCompatActivity() {
         etTweet = findViewById(R.id.etMultiLineTweet)
         btnTweetCompose = findViewById(R.id.buttonTweet)
         client = TwitterApplication.getRestClient(this)
+        tvCount =findViewById(R.id.tvCount)
+        tvCount.text="0/$MAX_WORD_COUNT"
+        etTweet.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // Fires right as the text is being changed (even supplies the range of text)
+                tvCount.text="${s.length}/$MAX_WORD_COUNT"
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // Fires right before text is changing
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                // Fires right after the text has changed
+               //tvDisplay.setText(s.toString())
+            }
+        })
         // Handling user click
         btnTweetCompose.setOnClickListener{
             // Grab content
