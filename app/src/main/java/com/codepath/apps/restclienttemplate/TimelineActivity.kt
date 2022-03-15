@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import okhttp3.Headers
 import org.json.JSONException
 
 private const val TAG = "TimelineActivity"
+private const val REQUEST_CODE = 10
 class TimelineActivity : AppCompatActivity() {
     // Instance of the TwitterCLient needed in order to populate the timeline
     lateinit var client: TwitterClient
@@ -57,9 +59,24 @@ class TimelineActivity : AppCompatActivity() {
     // handles menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.compose){
-            Toast.makeText(this,"compose clicked", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ComposeActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
+            // Get data
+            val tweet = data?.getParcelableExtra("newTweet") as Tweet
+            // Add tweet as first item in the tweets array
+            tweets.add(0,tweet)
+            // Notify data changed
+            adapter.notifyItemInserted(0)
+            // To automatically scroll to top
+            rvTimeline.smoothScrollToPosition(0)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
     fun populateHomeTimeline(){
         client.getHomeTimeline(object: JsonHttpResponseHandler(){
